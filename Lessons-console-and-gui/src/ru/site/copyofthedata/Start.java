@@ -12,114 +12,142 @@ import java.awt.Toolkit;
 
 public class Start extends javax.swing.JFrame {
 
-	public Start() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(
-				"C:\\Users\\pgapr\\Desktop\\\u041A\u043E\u043F\u0438\u044F \u043F\u0440\u043E\u0435\u043A\u0442\u043E\u0432 \u043F\u043E Java\\logo.png"));
-		initComponents();
-	}
+    public Start() {
+        setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\pgapr\\Desktop\\\u041A\u043E\u043F\u0438\u044F \u043F\u0440\u043E\u0435\u043A\u0442\u043E\u0432 \u043F\u043E Java\\logo.png"));
+       
+        initComponents();
+    }
 
-	@SuppressWarnings("unchecked")
-	private void initComponents() {
+    @SuppressWarnings("unchecked")
+                        
+    private void initComponents() {
 
-		jPanel1 = new javax.swing.JPanel();
-		jButtonStart = new javax.swing.JButton();
-		jLabelResult = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jButton1Start = new javax.swing.JButton();
+        jButton2Start = new javax.swing.JButton();
+        jLabel1Result = new javax.swing.JLabel();
+        jLabel2Result = new javax.swing.JLabel();
 
-		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-		setTitle("Сделать копию файлов");
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Сделать копию файлов");
 
-		jButtonStart.setText("Сделать копию файлов");
-		jButtonStart.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jButtonStartActionPerformed(evt);
-			}
-		});
+        jButton1Start.setText("Учебные проекты");
+        jButton1Start.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1StartActionPerformed(evt);
+            }
+        });
 
-		javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-		jPanel1.setLayout(jPanel1Layout);
-		jPanel1Layout.setHorizontalGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGroup(jPanel1Layout.createSequentialGroup().addContainerGap().addComponent(jButtonStart)
-						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-						.addComponent(jLabelResult, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
-						.addContainerGap()));
-		jPanel1Layout.setVerticalGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGroup(jPanel1Layout.createSequentialGroup().addContainerGap()
-						.addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-								.addComponent(jLabelResult, javax.swing.GroupLayout.DEFAULT_SIZE,
-										javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(jButtonStart, javax.swing.GroupLayout.DEFAULT_SIZE,
-										javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-						.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+        jButton2Start.setText("Мои проекты");
+        jButton2Start.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2StartActionPerformed(evt);
+            }
+        });
 
-		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-		getContentPane().setLayout(layout);
-		layout.setHorizontalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(
-				jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
-		layout.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(
-				jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
-				javax.swing.GroupLayout.PREFERRED_SIZE));
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton2Start, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton1Start, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1Result, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
+                    .addComponent(jLabel2Result, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton1Start)
+                    .addComponent(jLabel1Result, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel2Result, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton2Start, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
-		pack();
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        pack();
 		setLocationRelativeTo(null);
 		setResizable(false);
-	}
+    }
 
-	private void jButtonStartActionPerformed(java.awt.event.ActionEvent evt) {
-		Date Today = new Date();
+    		Date Today = new Date();
 		SimpleDateFormat Today2 = new SimpleDateFormat("dd MMMM yyyy");
 		String formattedDate = Today2.format(Today);
 		String result = formattedDate + "-" + Today.getHours() + " " + Today.getMinutes();
-		File Option = new File("C:\\Users\\pgapr\\Desktop\\Копия проектов по Java\\" + result);
-		Option.mkdir();
+    
+    private void jButton1StartActionPerformed(java.awt.event.ActionEvent evt) {                                              
+        File Option = new File("C:\\Users\\pgapr\\Desktop\\Копия проектов по Java\\" + result + "-workspace-my-training-projects");
+        Option.mkdir();
 
-		File srcFolder = new File("C:\\Java\\workspace");
-		File destFolder = new File("C:\\Users\\pgapr\\Desktop\\Копия проектов по Java\\" + result);
+        File srcFolder = new File("C:\\Java\\workspace-my-training-projects");
+        File destFolder = new File("C:\\Users\\pgapr\\Desktop\\Копия проектов по Java\\" + result + "-workspace-my-training-projects");
 
-		// проверяет существует ли папка
-		if (!srcFolder.exists()) {
-			System.out.println("Не верно указан путь, с которого нужно скопировать папку или файл(ы).");
-			System.exit(0);
-		} else {
-			try {
-				copyFolder(srcFolder, destFolder);
-			} catch (IOException e) {
-				e.printStackTrace();
-				System.exit(0);
-			}
-		}
+        // проверяет существует ли папка
+        if (!srcFolder.exists()) {
+            System.out.println("Не верно указан путь, с которого нужно скопировать папку или файл(ы).");
+            System.exit(0);
+        } else {
+            try {
+                copyFolder(srcFolder, destFolder);
+            } catch (IOException e) {
+                e.printStackTrace();
+                System.exit(0);
+            }
+        }
 
-		String text = "Готово";
-		jLabelResult.setText(text);
+        String text = "Готово";
+        jLabel1Result.setText(text);
+    }                                             
 
-	}
+    private void jButton2StartActionPerformed(java.awt.event.ActionEvent evt) {                                              
+	       File Option = new File("C:\\Users\\pgapr\\Desktop\\Копия проектов по Java\\" + result + "-workspace-my-projects");
+        Option.mkdir();
 
-	public static void main(String args[]) throws Exception {
-		try {
-			for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-				if ("Nimbus".equals(info.getName())) {
-					javax.swing.UIManager.setLookAndFeel(info.getClassName());
-					break;
-				}
-			}
-		} catch (ClassNotFoundException ex) {
-			java.util.logging.Logger.getLogger(Start.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-		} catch (InstantiationException ex) {
-			java.util.logging.Logger.getLogger(Start.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-		} catch (IllegalAccessException ex) {
-			java.util.logging.Logger.getLogger(Start.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-		} catch (javax.swing.UnsupportedLookAndFeelException ex) {
-			java.util.logging.Logger.getLogger(Start.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-		}
-		java.awt.EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				new Start().setVisible(true);
+        File srcFolder = new File("C:\\Java\\workspace-my-projects");
+        File destFolder = new File("C:\\Users\\pgapr\\Desktop\\Копия проектов по Java\\" + result + "-workspace-my-projects");
 
-			}
+        // проверяет существует ли папка
+        if (!srcFolder.exists()) {
+            System.out.println("Не верно указан путь, с которого нужно скопировать папку или файл(ы).");
+            System.exit(0);
+        } else {
+            try {
+                copyFolder(srcFolder, destFolder);
+            } catch (IOException e) {
+                e.printStackTrace();
+                System.exit(0);
+            }
+        }
 
-		});
-	}
+        String text = "Готово";
+        jLabel2Result.setText(text);
+    }                                             
 
-	public static void copyFolder(File src, File dest) throws IOException {
+    public static void copyFolder(File src, File dest) throws IOException {
 
 		// проверяет существует ли папка
 		if (src.isDirectory()) {
@@ -159,12 +187,40 @@ public class Start extends javax.swing.JFrame {
 			// System.out.println("Файл скопирован с " + src + " в " + dest);
 		}
 	}
+    
+    public static void main(String args[]) {
 
-	private javax.swing.JButton jButtonStart;
-	private javax.swing.JLabel jLabelResult;
-	private javax.swing.JPanel jPanel1;
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Start.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Start.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Start.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Start.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new Start().setVisible(true);
+            }
+        });
+    }
+                  
+    private javax.swing.JButton jButton1Start;
+    private javax.swing.JButton jButton2Start;
+    private javax.swing.JLabel jLabel1Result;
+    private javax.swing.JLabel jLabel2Result;
+    private javax.swing.JPanel jPanel1;
 }
 
-// На рабочем столе есть папка "Копия проектов по Java"
-// Там создавать архив с сегодняшним числом (день месяц год). Формат: 12 марта 2021.
-// В этот архив положить копии папок из папки workspace
+//На рабочем столе есть папка "Копия проектов по Java"
+//Там создавать архив с сегодняшним числом (день месяц год). Формат: 12 марта 2021.
+//В этот архив положить копии папок из папки workspace

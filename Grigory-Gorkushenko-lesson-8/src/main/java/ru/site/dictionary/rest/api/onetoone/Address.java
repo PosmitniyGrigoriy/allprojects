@@ -1,4 +1,6 @@
-package ru.site.onetoone;
+package ru.site.dictionary.rest.api.onetoone;
+
+import javax.persistence.*;
 
 @Entity
 @Table(name = "address")

@@ -15,10 +15,8 @@ public class Address {
     @NotBlank
     private String addressPeople;
 
-    @OneToOne
-    @MapsId
-    @JoinColumn(name = "user_id")
-    private User user_id;
+    @OneToOne(mappedBy = "address", cascade = CascadeType.ALL)
+    private User user;
     
     public Address(){
         super();

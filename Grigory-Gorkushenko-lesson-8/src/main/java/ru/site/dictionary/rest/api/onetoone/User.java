@@ -15,11 +15,23 @@ public class User {
     @NotBlank
     private String firstName;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
-    @MapsId
-    private Address addressPeople;
+//    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+//    @PrimaryKeyJoinColumn
+//    @MapsId
+//    private Address addressPeople;
 
+    
+    
+    @ JoinColumn (name = "address_id")
+    private int addressId;
+
+    @OneToOne
+    @JoinColumn(name = "address_id", referencedColumnName = "adress_id")
+    private Address address;
+    
+    
+    
+    
     public User(){
         super();
     }

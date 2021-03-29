@@ -2,40 +2,39 @@ package ru.site.dictionary.rest.api.onetoone;
 
 import javax.persistence.*;
 
+
 @Entity
 @Table(name = "users")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    private Long id;
+    @Column(name = "user_id")
+    private Long user_id;
     private String firstName;
-    private String addressPeople;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
+    @MapsId
+    @JoinColumn(name = "user_id")
     private Address address;
 
-    
-    
     public User(){
         super();
     }
 
-    public User(Long id, String firstName, String addressPeople) {
+    public User(Long user_id, String firstName) {
         super();
-        this.id = id;
+        this.user_id = user_id;
         this.firstName = firstName;
-        this.addressPeople = addressPeople;
     }
     
     public Long getId() {
-        return id;
+        return user_id;
     }
     
-    public void setId(Long id) {
-        this.id = id;
+    public void setId(Long user_id) {
+        this.user_id = user_id;
     }
 
     public String getFirstName() {
@@ -45,14 +44,5 @@ public class User {
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
-    
-    public String getAddressPeople() {
-        return addressPeople;
-    }
-    
-    public void setAddressPeople(String addressPeople) {
-        this.addressPeople = addressPeople;
-    }
-    
     
 }

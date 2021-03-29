@@ -39,10 +39,7 @@ public class AddressController {
 	   Address address = addressRepository.findById(addressId)
                .orElseThrow(() -> new AddressNotFoundException(addressId));
        
-//       address.setWords(addressDetails.getWords());
-//       address.setRepetitions(addressDetails.getRepetitions());
-//       address.setTranscriptions(addressDetails.getTranscriptions());
-//       address.setTranslations(addressDetails.getTranslations());
+	   address.setAddressPeople(addressDetails.getAddressPeople());
        
 	   Address updatedAddress = addressRepository.save(address);
        return updatedAddress;

@@ -40,7 +40,6 @@ public class UserController {
                .orElseThrow(() -> new UserNotFoundException(userId));
        
        user.setFirstName(userDetails.getFirstName());
-       user.setAddressPeople(userDetails.getAddressPeople());
        
        User updatedUser = UserRepository.save(user);
        return updatedUser;

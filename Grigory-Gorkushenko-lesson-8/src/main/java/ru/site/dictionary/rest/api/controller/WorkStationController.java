@@ -14,21 +14,21 @@ import java.util.List;
 public class WorkStationController {
 
    @Autowired
-   WorkStationRepository WorkStationRepository;
+   WorkStationRepository workStationRepository;
    
    @GetMapping("/workStation")
    public List getAllNotes() {
-       return WorkStationRepository.findAll();
+       return workStationRepository.findAll();
    }
    
    @PostMapping("/workStation")
    public WorkStation createNote(@Valid @RequestBody WorkStation workStation) {
-       return WorkStationRepository.save(workStation);
+       return workStationRepository.save(workStation);
    }
    
    @GetMapping("/workStation/{id}")
    public WorkStation getNoteById(@PathVariable(value = "id") Long workStationId) throws WorkStationNotFoundException {
-       return WorkStationRepository.findById(workStationId)
+       return workStationRepository.findById(workStationId)
                .orElseThrow(() -> new WorkStationNotFoundException(workStationId));
    }
    
@@ -36,7 +36,7 @@ public class WorkStationController {
    public WorkStation updateNote(@PathVariable(value = "id") Long workStationId,
                           @Valid @RequestBody WorkStation workStationDetails) throws WorkStationNotFoundException {
        
-	   WorkStation workStation = WorkStationRepository.findById(workStationId)
+	   WorkStation workStation = workStationRepository.findById(workStationId)
                .orElseThrow(() -> new WorkStationNotFoundException(workStationId));
        
 //       workStation.setWords(workStationDetails.getWords());
@@ -44,16 +44,16 @@ public class WorkStationController {
 //       workStation.setTranscriptions(workStationDetails.getTranscriptions());
 //       workStation.setTranslations(workStationDetails.getTranslations());
        
-	   WorkStation updatedWorkStation = WorkStationRepository.save(workStation);
+	   WorkStation updatedWorkStation = workStationRepository.save(workStation);
        return updatedWorkStation;
    }
    
    @DeleteMapping("/workStation/{id}")
    public ResponseEntity deleteDictionary(@PathVariable(value = "id") Long workStationId) throws WorkStationNotFoundException {
-	   WorkStation workStation = WorkStationRepository.findById(workStationId)
+	   WorkStation workStation = workStationRepository.findById(workStationId)
                .orElseThrow(() -> new WorkStationNotFoundException(workStationId));
        
-	   WorkStationRepository.delete(workStation);
+	   workStationRepository.delete(workStation);
        return ResponseEntity.ok().build();
    }
 }

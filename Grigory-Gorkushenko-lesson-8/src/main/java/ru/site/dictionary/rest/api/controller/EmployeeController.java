@@ -14,21 +14,21 @@ import java.util.List;
 public class EmployeeController {
 
    @Autowired
-   EmployeeRepository EmployeeRepository;
+   EmployeeRepository employeeRepository;
    
    @GetMapping("/employee")
    public List getAllNotes() {
-       return EmployeeRepository.findAll();
+       return employeeRepository.findAll();
    }
    
    @PostMapping("/employee")
    public Employee createNote(@Valid @RequestBody Employee employee) {
-       return EmployeeRepository.save(employee);
+       return employeeRepository.save(employee);
    }
    
    @GetMapping("/employee/{id}")
    public Employee getNoteById(@PathVariable(value = "id") Long employeeId) throws EmployeeNotFoundException {
-       return EmployeeRepository.findById(employeeId)
+       return employeeRepository.findById(employeeId)
                .orElseThrow(() -> new EmployeeNotFoundException(employeeId));
    }
    
@@ -36,7 +36,7 @@ public class EmployeeController {
    public Employee updateNote(@PathVariable(value = "id") Long employeeId,
                           @Valid @RequestBody Employee employeeDetails) throws EmployeeNotFoundException {
        
-	   Employee employee = EmployeeRepository.findById(employeeId)
+	   Employee employee = employeeRepository.findById(employeeId)
                .orElseThrow(() -> new EmployeeNotFoundException(employeeId));
        
 //       employee.setWords(employeeDetails.getWords());
@@ -44,16 +44,16 @@ public class EmployeeController {
 //       employee.setTranscriptions(employeeDetails.getTranscriptions());
 //       employee.setTranslations(employeeDetails.getTranslations());
        
-	   Employee updatedEmployee = EmployeeRepository.save(employee);
+	   Employee updatedEmployee = employeeRepository.save(employee);
        return updatedEmployee;
    }
    
    @DeleteMapping("/employee/{id}")
    public ResponseEntity deleteDictionary(@PathVariable(value = "id") Long employeeId) throws EmployeeNotFoundException {
-	   Employee employee = EmployeeRepository.findById(employeeId)
+	   Employee employee = employeeRepository.findById(employeeId)
                .orElseThrow(() -> new EmployeeNotFoundException(employeeId));
        
-	   EmployeeRepository.delete(employee);
+	   employeeRepository.delete(employee);
        return ResponseEntity.ok().build();
    }
 }

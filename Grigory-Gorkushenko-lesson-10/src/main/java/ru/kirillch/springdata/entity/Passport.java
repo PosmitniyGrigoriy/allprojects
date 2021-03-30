@@ -51,7 +51,7 @@ public class Passport {
 
 	@Override
 	public String toString() {
-		return "\nPassport [id=" + id + ", number=" + number + ", person=" + person + "]";
+		return "\nPassport [id=" + id + ", number=" + number + "]";
 	}
 	
 	

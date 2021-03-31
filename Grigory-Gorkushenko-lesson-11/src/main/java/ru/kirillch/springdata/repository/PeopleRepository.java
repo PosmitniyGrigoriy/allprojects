@@ -10,7 +10,7 @@ import ru.kirillch.springdata.entity.Person;
 import java.util.List;
 
 @Repository
-public interface PersonRepository extends JpaRepository<Person, Integer> {
+public interface PeopleRepository extends JpaRepository<Person, Integer> {
 
     List<Person> findByFirstName(String firstName);
 

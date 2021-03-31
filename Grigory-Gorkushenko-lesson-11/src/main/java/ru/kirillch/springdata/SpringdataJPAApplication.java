@@ -10,7 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import ru.kirillch.springdata.entity.Passport;
 import ru.kirillch.springdata.entity.Person;
-import ru.kirillch.springdata.repository.PersonRepository;
+import ru.kirillch.springdata.repository.PeopleRepository;
 
 @SpringBootApplication
 public class SpringdataJPAApplication implements CommandLineRunner {
@@ -20,7 +20,7 @@ public class SpringdataJPAApplication implements CommandLineRunner {
     }
 
     @Autowired
-    PersonRepository personRepository;
+    PeopleRepository personRepository;
 
     @Override
     public void run(String... args) throws Exception {

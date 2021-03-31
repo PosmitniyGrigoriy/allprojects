@@ -12,38 +12,33 @@ public class Address {
 	private Long id;
 
 	
+	
 	@NotBlank
-	private String address;
+	private String country;
 	
-	
-//	@NotBlank
-//	private String country;
-//	
 //	@NotBlank
 //	private String city;
 //	
 //	@NotBlank
 //	private String street;
 //	
-//	@NotBlank
 //	private int house;
-//	
-//	@NotBlank
 //	private int apartment;
 
-	@OneToOne(mappedBy = "address", cascade = CascadeType.ALL)
+	@OneToOne(mappedBy = "country", cascade = CascadeType.ALL)
+//	@OneToOne(mappedBy = "country", "city", "street", "house", "apartment", cascade = CascadeType.ALL)
 	private People people;
 	
 	public Address() {
 		super();
 	}
-		
-	 public Address(String address) {
-	    	this.address = address;
-	    }
 	
 	
-//	public Address(String country, String city, String street,int house, int apartment) {
+	public Address(String country) {
+		this.country = country;
+	}
+	
+//	public Address(String country, String city, String street, int house, int apartment) {
 //		this.country = country;
 //		this.city = city;
 //		this.street = street;
@@ -61,25 +56,16 @@ public class Address {
 	
 	
 	
-	public String getAddress() {
-		return address;
+	
+	
+	public String getCountry() {
+		return country;
 	}
 
-	public void setAddress(String address) {
-		this.address = address;
+	public void setCountry(String country) {
+		this.country = country;
 	}
 	
-	
-	
-	
-//	public String getCountry() {
-//		return country;
-//	}
-//
-//	public void setCountry(String country) {
-//		this.country = country;
-//	}
-//	
 //	public String getCity() {
 //		return city;
 //	}

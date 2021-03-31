@@ -16,8 +16,7 @@ public class People {
     
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id")
-    private Address address;
-//	private Address country;
+	private Address country;
 //	private Address city;
 //	private Address street;
 //	private Address house;
@@ -31,15 +30,6 @@ public class People {
     	this.firstName = firstName;
     }
     
-//    public People(String firstName, Address country, Address city, Address street, Address house, Address apartment) {
-//		this.firstName = firstName;
-//		this.country = country;
-//		this.city = city;
-//		this.street = street;
-//		this.house = house;
-//		this.apartment = apartment;
-//	}
-
 	public Long getId() {
         return id;
     }
@@ -57,26 +47,16 @@ public class People {
     }
     
     
-    
-    
-    public Address getAddress() {
-		return address;
-	}
-
-	public void setAddress(Address address) {
-		this.address = address;
-	}
-
 	
 	
-//    public Address getCountry() {
-//		return country;
-//	}
-//
-//	public void setCountry(Address country) {
-//		this.country = country;
-//	}
-//	
+   public Address getCountry() {
+		return country;
+	}
+
+	public void setCountry(Address country) {
+		this.country = country;
+	}
+	
 //	public Address getCity() {
 //		return city;
 //	}

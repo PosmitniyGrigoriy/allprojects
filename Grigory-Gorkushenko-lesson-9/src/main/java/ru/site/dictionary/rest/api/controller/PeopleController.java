@@ -42,12 +42,11 @@ public class PeopleController {
        
 	   people.setId(peopleDetails.getId());
 	   people.setFirstName(peopleDetails.getFirstName());
-//	   people.setAddress(peopleDetails.getAddress());
 	   people.setCountry(peopleDetails.getCountry());
-//	   people.setCity(peopleDetails.getCity());
-//	   people.setStreet(peopleDetails.getStreet());
-//	   people.setHouse(peopleDetails.getHouse());
-//	   people.setApartment(peopleDetails.getApartment());
+	   people.setCity(peopleDetails.getCity());
+	   people.setStreet(peopleDetails.getStreet());
+	   people.setHouse(peopleDetails.getHouse());
+	   people.setApartment(peopleDetails.getApartment());
 	   
        People updatedPeople = peopleRepository.save(people);
        return updatedPeople;

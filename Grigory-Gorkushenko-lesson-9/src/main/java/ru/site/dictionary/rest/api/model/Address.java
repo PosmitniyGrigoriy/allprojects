@@ -16,15 +16,22 @@ public class Address {
 	@NotBlank
 	private String country;
 	
-//	@NotBlank
-//	private String city;
-//	
-//	@NotBlank
-//	private String street;
-//	
-//	private int house;
-//	private int apartment;
+	
+	
+	
+	
+	@NotBlank
+	private String city;
+	
+	@NotBlank
+	private String street;
+	
+	private int house;
+	private int apartment;
 
+	
+	
+	
 	@OneToOne(mappedBy = "country", cascade = CascadeType.ALL)
 //	@OneToOne(mappedBy = "country", "city", "street", "house", "apartment", cascade = CascadeType.ALL)
 	private People people;
@@ -34,17 +41,17 @@ public class Address {
 	}
 	
 	
-	public Address(String country) {
-		this.country = country;
-	}
-	
-//	public Address(String country, String city, String street, int house, int apartment) {
+//	public Address(String country) {
 //		this.country = country;
-//		this.city = city;
-//		this.street = street;
-//		this.house = house;
-//		this.apartment = apartment;
 //	}
+	
+	public Address(String country, String city, String street, int house, int apartment) {
+		this.country = country;
+		this.city = city;
+		this.street = street;
+		this.house = house;
+		this.apartment = apartment;
+	}
 
 	public Long getId() {
 		return id;
@@ -66,37 +73,41 @@ public class Address {
 		this.country = country;
 	}
 	
-//	public String getCity() {
-//		return city;
-//	}
-//
-//	public void setCity(String city) {
-//		this.city = city;
-//	}
-//	
-//	public String getStreet() {
-//		return street;
-//	}
-//
-//	public void setStreet(String street) {
-//		this.street = street;
-//	}
-//	
-//	public int getHouse() {
-//		return house;
-//	}
-//
-//	public void setHouse(int house) {
-//		this.house = house;
-//	}
-//	
-//	public int getApartment() {
-//		return apartment;
-//	}
-//
-//	public void setApartment(int apartment) {
-//		this.apartment = apartment;
-//	}
+	
+	
+	
+	
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+	
+	public String getStreet() {
+		return street;
+	}
+
+	public void setStreet(String street) {
+		this.street = street;
+	}
+	
+	public int getHouse() {
+		return house;
+	}
+
+	public void setHouse(int house) {
+		this.house = house;
+	}
+	
+	public int getApartment() {
+		return apartment;
+	}
+
+	public void setApartment(int apartment) {
+		this.apartment = apartment;
+	}
 	
 	
 	

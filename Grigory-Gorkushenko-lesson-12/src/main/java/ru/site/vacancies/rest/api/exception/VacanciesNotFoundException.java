@@ -1,4 +1,4 @@
-package ru.site.dictionary.rest.api.exception;
+package ru.site.vacancies.rest.api.exception;
 
 public class VacanciesNotFoundException extends Exception {
    private long vacancies_id;

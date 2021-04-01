@@ -1,8 +1,8 @@
-package ru.site.dictionary.rest.api.controller;
+package ru.site.vacancies.rest.api.controller;
 
-import ru.site.dictionary.rest.api.exception.VacanciesNotFoundException;
-import ru.site.dictionary.rest.api.model.Vacancies;
-import ru.site.dictionary.rest.api.repository.VacanciesRepository;
+import ru.site.vacancies.rest.api.exception.VacanciesNotFoundException;
+import ru.site.vacancies.rest.api.model.Vacancies;
+import ru.site.vacancies.rest.api.repository.VacanciesRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,11 +18,6 @@ public class VacanciesController {
    
    @GetMapping("/vacancies")
    public List getAllVacancies() {
-       return vacanciesRepository.findAll();
-   }
-   
-   @GetMapping("/vacancies/marked")
-   public List getAllVacanciesMarked() {
        return vacanciesRepository.findAll();
    }
    
@@ -61,7 +56,6 @@ public class VacanciesController {
        vacancies.setIsMarked(vacanciesDetails.getIsMarked());
        Vacancies updatedVacancies = vacanciesRepository.save(vacancies);
        return updatedVacancies;
-       
    }
    
    @DeleteMapping("/vacancies/{id}")

@@ -1,7 +1,9 @@
-package ru.site.dictionary.rest.api.model;
+package ru.site.vacancies.rest.api.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "vacancies")
@@ -15,7 +17,7 @@ public class Vacancies {
    private String title;
 
    private boolean isMarked;
-
+   
    public Vacancies(){
        super();
    }

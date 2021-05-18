@@ -54,105 +54,40 @@ public class Start {
 //			System.out.println(m);
 //		}
 		
+		// Map из моделей. Выводит в формате: модель=[список автомобилей]
+		ArrayList<Car> bmw = new ArrayList<>();
+		ArrayList<Car> toyota = new ArrayList<>();
+		ArrayList<Car> audi = new ArrayList<>();
+		ArrayList<Car> skoda = new ArrayList<>();
+		ArrayList<Car> peugeot = new ArrayList<>();
+		ArrayList<Car> fiat = new ArrayList<>();
 		
+		Map<String, List<Car>> mapCars = new HashMap<>();
 		
+		for(int i = 0; i < cars.size(); i++) {
+			if(cars.get(i).getModel() == Model.BMW) {
+				bmw.add(cars.get(i));
+			} else if (cars.get(i).getModel() == Model.TOYOTA) {
+				toyota.add(cars.get(i));
+			} else if (cars.get(i).getModel() == Model.AUDI) {
+				audi.add(cars.get(i));
+			} else if (cars.get(i).getModel() == Model.SKODA) {
+				skoda.add(cars.get(i));
+			} else if (cars.get(i).getModel() == Model.PEUGEOT) {
+				peugeot.add(cars.get(i));
+			} else if (cars.get(i).getModel() == Model.FIAT) {
+				fiat.add(cars.get(i));
+			}
+		}
 		
+		mapCars.put("BMW", bmw);
+		mapCars.put("TOYOTA", toyota);
+		mapCars.put("AUDI", audi);
+		mapCars.put("SKODA", skoda);
+		mapCars.put("PEUGEOT", peugeot);
+		mapCars.put("FIAT", fiat);
 		
-		// BMW - 1, AUDI - 2, FIAT - 2, TOYOTA - 2
-		
-//		Map<String, String> mapCars = new HashMap<>();
-//		
-//		for(int i = 0; i < cars.size(); i++) {
-//			if(Model.BMW == cars.get(i).getModel()) {
-//				mapCars.put("BMW", "111");
-//			}
-//		}
-//		
-//		for(int i = 0; i < cars.size(); i++) {
-//			if(Model.TOYOTA == cars.get(i).getModel()) {
-//				mapCars.put("TOYOTA", "222");
-//			}
-//		}
-//		
-//		for(int i = 0; i < cars.size(); i++) {
-//			if(Model.AUDI == cars.get(i).getModel()) {
-//				mapCars.put("AUDI", "333");
-//			}
-//		}
-//		
-//		for(int i = 0; i < cars.size(); i++) {
-//			if(Model.SKODA == cars.get(i).getModel()) {
-//				mapCars.put("SKODA", "444");
-//			}
-//		}
-//		
-//		for(int i = 0; i < cars.size(); i++) {
-//			if(Model.PEUGEOT == cars.get(i).getModel()) {
-//				mapCars.put("PEUGEOT", "555");
-//			}
-//		}
-//		
-//		for(int i = 0; i < cars.size(); i++) {
-//			if(Model.FIAT == cars.get(i).getModel()) {
-//				mapCars.put("FIAT", "666");
-//			}
-//		}
-//
-//		System.out.println(mapCars);
-		
-		
-		
-		
-		
-		
-		
-		
-//		Map<String, List<Car>> mapCars = new HashMap<>();
-//		
-//		for(int i = 0; i < cars.size(); i++) {
-//			if(Model.BMW == cars.get(i).getModel()) {
-//				mapCars.put("BMW", cars);
-//			}
-//		}
-//		
-//		for(int i = 0; i < cars.size(); i++) {
-//			if(Model.TOYOTA == cars.get(i).getModel()) {
-//				mapCars.put("TOYOTA", cars);
-//			}
-//		}
-//		
-//		for(int i = 0; i < cars.size(); i++) {
-//			if(Model.AUDI == cars.get(i).getModel()) {
-//				mapCars.put("AUDI", cars);
-//			}
-//		}
-//		
-//		for(int i = 0; i < cars.size(); i++) {
-//			if(Model.SKODA == cars.get(i).getModel()) {
-//				mapCars.put("SKODA", cars);
-//			}
-//		}
-//		
-//		for(int i = 0; i < cars.size(); i++) {
-//			if(Model.PEUGEOT == cars.get(i).getModel()) {
-//				mapCars.put("PEUGEOT", cars);
-//			}
-//		}
-		
-//		for(int i = 0; i < cars.size(); i++) {
-//			if(Model.FIAT == cars.get(i).getModel()) {
-//				mapCars.put("FIAT", cars);
-//			}
-//		}
-		
-//		System.out.println(mapCars);
-		
-		
-		
-		
-		
-		
-
+		System.out.println(mapCars);
 		
 	}
 

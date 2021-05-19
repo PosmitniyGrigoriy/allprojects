@@ -1,5 +1,7 @@
 package ru.site.collectionscar;
 
+import java.util.ArrayList;
+
 public class Car {
 	
 	Model model;

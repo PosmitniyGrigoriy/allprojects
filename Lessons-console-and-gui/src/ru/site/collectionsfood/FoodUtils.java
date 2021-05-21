@@ -45,22 +45,19 @@ public class FoodUtils {
 				mapFoods.put(food.type.toString(), count += 1);
 			}
 		}
-		System.out.println(mapFoods);
+//		System.out.println(mapFoods);
 		return mapFoods;
 	}
-	
-	
-	
-	
-	
 	
 	public static List<Food> creatingListOfProductsFromMap(Map<Type, List<String>> mapFoods) {
 		List<Food> listFoods = new ArrayList<>();
 		for (Map.Entry<Type, List<String>> entry : mapFoods.entrySet()) {
-//			listFoods = entry.getValue();
-			System.out.println(entry.getValue());
+			for(String nameFood : entry.getValue()) {
+				Food food = new Food(entry.getKey(), nameFood);
+				listFoods.add(food);
+			}
 		}
-		System.out.println(listFoods);
+//		System.out.println(listFoods);
 		return listFoods;
 	}
 		

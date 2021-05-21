@@ -1,7 +1,9 @@
 package ru.site.collectionsfood;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class TestEntities {
 	
@@ -31,6 +33,15 @@ public class TestEntities {
 		listFoods.add(new Food(Type.ЯГОДЫ, "Смородина"));
 		
 		return listFoods;
+	}
+	
+	public static Map<Type, List<String>> getMapFoods() {
+		Map<Type, List<String>> mapFoods = new HashMap<>();
+		mapFoods.put(Type.ОВОЩИ, List.of("Тыква", "Баклажан", "Кабачок", "Свекла", "Огурец", "Картошка", "Морковь", "Морковь"));
+		mapFoods.put(Type.ФРУКТЫ, List.of("Манго", "Грейпфрукт", "Дыня", "Абрикос", "Киви", "Яблоко", "Груша", "Банан", "Банан"));
+		mapFoods.put(Type.ЯГОДЫ, List.of("Клубника", "Малина", "Смородина"));
+		
+		return mapFoods;
 	}
 	
 }

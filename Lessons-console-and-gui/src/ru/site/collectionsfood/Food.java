@@ -31,6 +31,4 @@ public class Food {
 		this.name = name;
 	}
 	
-	
-	
 }

@@ -1,7 +1,7 @@
 package ru.site.start.lesson23_2;
 
-import ru.site.lesson23_3.X2;
-//import ru.site.lesson23_3.X2.*;
+import ru.site.start.lesson23_3.X2;
+//import ru.site.start.lesson23_3.X2.*;
 
 public class Y2 extends X2 {
 	

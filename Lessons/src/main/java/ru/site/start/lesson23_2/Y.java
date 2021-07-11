@@ -1,6 +1,6 @@
 //package ru.site.start.lesson23_2;
 //
-//import ru.site.lesson23_3.*;
+//import ru.site.start.lesson23_3.*;
 //
 //public class Y extends X {
 //	

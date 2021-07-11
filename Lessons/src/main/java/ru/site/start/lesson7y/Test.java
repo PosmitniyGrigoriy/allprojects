@@ -1,6 +1,6 @@
 package ru.site.start.lesson7y;
 
-import ru.site.lesson7x.*;
+import ru.site.start.lesson7x.*;
 
 public class Test extends People{
 	

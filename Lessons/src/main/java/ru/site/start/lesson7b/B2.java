@@ -1,6 +1,6 @@
 package ru.site.start.lesson7b;
 
-import ru.site.lesson7a.*;
+import ru.site.start.lesson7a.*;
 
 public class B2 {
 	public static void main(String[] args) {

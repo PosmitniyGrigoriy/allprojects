@@ -29,7 +29,7 @@ public class People {
 		People people3 = new People("Маша", 22);
 		sum(); // Имя метода - лучше использовать этот вариант, а не нижние
 		People.sum(); // Имя класса + имя метода
-		ru.site.lesson8.People.sum2(); // Полное имя пэкэджа + имя класса + имя метода
+		ru.site.start.lesson8.People.sum2(); // Полное имя пэкэджа + имя класса + имя метода
 		
 	}
 	

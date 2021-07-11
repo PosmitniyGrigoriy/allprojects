@@ -2,7 +2,7 @@
 
 package ru.site.zzz.modificators2;
 
-import ru.site.modificators.Options;
+import ru.site.zzz.modificators.Options;
 
 public class v2 {
 

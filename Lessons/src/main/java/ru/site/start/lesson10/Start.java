@@ -1,6 +1,6 @@
 package ru.site.start.lesson10;
 
-import static ru.site.lesson9.Math1.*; // Импортируются все статические методы и статические переменные с класса, который расположен в другом пэкэдже
+import static ru.site.start.lesson9.Math1.*; // Импортируются все статические методы и статические переменные с класса, который расположен в другом пэкэдже
 
 
 /*
@@ -48,10 +48,10 @@ public class Start {
 	public static void main(String[] args) {
 		
 		System.out.println(a);
-		System.out.println(ru.site.lesson9.Math1.a);
+		System.out.println(ru.site.start.lesson9.Math1.a);
 		System.out.println(b);
 		sum();
-		ru.site.lesson9.Math1.sum();
+		ru.site.start.lesson9.Math1.sum();
 		
 	}
 

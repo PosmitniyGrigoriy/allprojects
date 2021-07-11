@@ -2,9 +2,9 @@
 
 package ru.site.zzz.modificators3;
 
-import ru.site.modificators.v1;
-import ru.site.modificators2.v2;
-import ru.site.modificators2.v3;
+import ru.site.zzz.modificators.v1;
+import ru.site.zzz.modificators2.v2;
+import ru.site.zzz.modificators2.v3;
 
 public class Start {
 

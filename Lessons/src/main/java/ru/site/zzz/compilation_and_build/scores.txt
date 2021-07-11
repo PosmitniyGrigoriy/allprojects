@@ -1,0 +1,3 @@
+Score [firstName=Николай, lastName=Смирнов, score=250, playDate=Wed Mar 17 14:34:56 VLAT 2021]
+Score [firstName=Анна, lastName=Егорова, score=300, playDate=Wed Mar 17 14:34:56 VLAT 2021]
+Score [firstName=Сергей, lastName=Данилов, score=190, playDate=Wed Mar 17 14:34:56 VLAT 2021]

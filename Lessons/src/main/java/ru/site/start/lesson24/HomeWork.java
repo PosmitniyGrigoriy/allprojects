@@ -29,7 +29,6 @@ public class HomeWork {
         mammal.run();
         mammal.sleep();
         mammal.speek();
-
     }
 
 }

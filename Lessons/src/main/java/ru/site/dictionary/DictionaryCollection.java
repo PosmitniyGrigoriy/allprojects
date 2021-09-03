@@ -1,4 +1,4 @@
-package ru.site.start.dictionary;
+package ru.site.dictionary;
 
 import java.util.*;
 

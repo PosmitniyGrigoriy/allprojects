@@ -1,4 +1,4 @@
-package ru.site.start.dictionary;
+package ru.site.dictionary;
 
 public class DictionaryText {
 

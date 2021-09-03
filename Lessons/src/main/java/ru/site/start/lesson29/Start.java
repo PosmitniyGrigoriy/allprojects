@@ -2,10 +2,9 @@ package ru.site.start.lesson29;
 
 import java.text.*;
 import java.text.*;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
+import java.time.*;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.*;
 
 public class Start {
@@ -250,24 +249,459 @@ public class Start {
         /**
          * В уроке будет информация просто по классам и методам. Без часовых поясов.
          *
-         * 
+         * Класс LocalDate содержит информацию о дне: год, месяц, день.
+         * Класс LocalTime содержит информацию о времени: час, минута, секунда, наносекунда. наносекунда - миллиардная доля секунды.
+         * Класс LocalDateTime содержит информацию о дне и времени: год, месяц, день, час, минута, секунда, наносекунда.
+         *
+         * Эти классы в пэкэджэ java.time.*
+         *
+         * Класс дня используется, если важен только день. Например, 8 марта 2021.
+         * Класс времени используется, если важно только время. Например, 13:00 - это время обеда.
+         * Класс дня и времени используется, если важна дата и время. Такого-то дня и в такое-то время будет такое-то событие.
+         *
+         * Данные 3 класса имеют стэтик метод now(), который возвращает объекты с текущими значениями.
+         */
+
+//        System.out.println(LocalDate.now()); // 2021-08-28 - по умолчанию выводит год, месяц, день, а не день, месяц, год
+//        System.out.println(LocalTime.now()); // 23:44:48.295180700
+//        System.out.println(LocalDateTime.now()); // 2021-08-28T23:44:48.296180300 - дата и время разделены символом Т
+
+        // Когда в сауте что-то указывается, это всегда конвертируется в строку. Напишем toString() или не напишем - всегда будет конвертация в строку.
+
+        // Выше было три метода новых. У каждого метода прайвэт кэнстракте. Нельзя создать экземпляр (объект). Нельзя написать после равно new ... Можно лишь вызывать метод. Как показано будет ниже в примере.
+//        LocalDate ld1 = new LocalDate(2014, 5, 15); // Так писать нельзя.
+
+        // Ниже будет код с автомобилем. По аналогии написан код для тех трех классов по дате, пэтому нельзя создать объект самому по дате, а можно лишь вызывать метод, который создаст объект даты.
+        // Если раскомментировать код, то будут компиляционные ошибки. Чтобы их не было, нужно этот код вынести за пределы класса, за мэин.
+
+//class Test2 {
+//    public void main(String[] args) {
+//        Car c = Car.createCar();
+//    }
+//}
+//
+//class Car {
+//    private Car() { }
+//    static Car createCar() { return new Car(); }
+//}
+
+        // Методы of() возвращают объекты соответствующего типа.
+        // Ниже два способа, как можно создать объект LocalDate. Разница в месяце. В первом случае нужно указать число, а во втором случае нужно выбрать значение инам.
+//        public static LodalDate of(int год, int месяц, int день)
+//        public static LodalDate of(int год, Month месяц, int день)
+
+        // Два способа как можно создать дату
+//        LocalDate ld1 = LocalDate.of(2014, 3, 20); // Обычно индексация в джаве с 0, но в этом классе месяц с 1 по 12.
+//        System.out.println(ld1); // 2014-03-20
+//        LocalDate ld2 = LocalDate.of(2014, Month.DECEMBER, 20);
+//        System.out.println(ld2); // 2014-12-20
+//
+//        LocalDate ld3 = LocalDate.now();
+//        System.out.println(ld3); // 2021-08-29
+//
+//        // Три способа как можно создать время
+//        LocalTime lt1 = LocalTime.of(20, 15);
+//        System.out.println(lt1); // 20:15
+//        LocalTime lt2 = LocalTime.of(20, 15, 33);
+//        System.out.println(lt2); // 20:15:33
+//        LocalTime lt3 = LocalTime.of(20, 15, 33, 555);
+//        System.out.println(lt3); // 20:15:33.000000555
+//
+//        LocalTime lt4 = LocalTime.now();
+//        System.out.println(lt4); // 00:06:14.249883500
+//
+//        // Шесть способов создания даты и времени
+//        LocalDateTime ldt1 = LocalDateTime.of(2020, 5, 10, 8, 44);
+//        System.out.println(ldt1); // 2020-05-10T08:44:00.000000000
+//        LocalDateTime ldt2 = LocalDateTime.of(2020, 5, 10, 8, 44, 30);
+//        System.out.println(ldt2); // 2020-05-10T08:44:30.000000000
+//        LocalDateTime ldt3 = LocalDateTime.of(2020, 5, 10, 8, 44, 30, 555);
+//        System.out.println(ldt3); // 2020-05-10T08:44:30.000000555
+//        // В трех выше способах месяц указан числом, но можно также и инам указать. Это еще три способа. Итого шесть способов создания даты и времени.
+//
+//        LocalDateTime ldt4 = LocalDateTime.of(ld1, lt1); // Этот способ в параметры принимает - на первое место - переменную даты, на втором место - переменную времени и создает дату и время
+//        System.out.println(ldt4); // 2014-03-20T20:15
+
+        // Если неправильно указать параметры в метод of, появится иксепшин: Invalid value for MonthOfYear (valid values 1 - 12): 33. Тоже самое дней касается и скорей времени тоже.
+
+        /** Изменение объектов классов LocalDate, LocalTime, LocalDateTime.
+         * Все три класса immutable. Исходные значения даты не изменяются.
+         * Когда происходит изменение даты, то создается второй объект, и туда записывается новое значение,
+         * а старое значение в первом объекте сохраняется неизмененным. То есть нужно сохранять новое значение
+         * даты в новую переменную. Или перезаписывать в ту же переменную. Пример ниже.
+         */
+
+//         LocalDate ld10 = LocalDate.of(2014, 5, 15);
+//         ld10 = ld10.plusDays(5);
+//         System.out.println(ld10); // 2014-05-20
+//        // Или такой вариант использовать, когда сохраняем в новую переменную
+//        LocalDate ld11 = LocalDate.of(2014, 5, 15);
+//        LocalDate ld12 = ld11.plusDays(6);
+//        System.out.println(ld12); // 2014-05-21
+//
+//        LocalDate ld13 = ld12.minusDays(6);
+//        System.out.println(ld13); // 2014-05-15
+//
+//        LocalDate ld14 = ld13.minusWeeks(2);
+//        System.out.println(ld14); // 2014-05-01
+//
+//        LocalDate ld15 = ld14.minusMonths(1);
+//        System.out.println(ld15); // 2014-04-01
+//
+//        LocalDate ld16 = ld15.minusYears(1);
+//        System.out.println(ld16); // 2013-04-01
+
+         /** Методы:
+          * plusDays(long количество_дней) -> LocalDate
+          * minusDays(long количество_дней) -> LocalDate
+          *
+          * plusWeeks(long количество_недель) -> LocalDate
+          * minusWeeks(long количество_недель) -> LocalDate
+          *
+          * plusMonths(long количество_месяцев) -> LocalDate
+          * minusMonths(long количество_месяцев) -> LocalDate
+          *
+          * plusYears(long количество_лет) -> LocalDate
+          * minusYears(long количество_лет) -> LocalDate
+          */
+
+        /**
+         * Выше были методы для класса LocalDate
+         *
+         * По аналогии будут методы для класса LocalTime
+         *
+         * plusHours(long количество_часов) -> LocalTime
+         * minusHours(long количество_часов) -> LocalTime
+         *
+         * plusMinutes(long количество_минут) -> LocalTime
+         * minusMinutes(long количество_минут) -> LocalTime
+         *
+         * plusSeconds(long количество_секунд) -> LocalTime
+         * minusSeconds(long количество_секунд) -> LocalTime
+         *
+         * plusNanos(long количество_наносекунд) -> LocalTime
+         * minusNanos(long количество_наносекунд) -> LocalTime
+         *
+         *
+         * Методы, которые были в классах LocalDate и LocalTime будут в классе LocalDateTime,
+         * так как этот класс LocalDateTime совмещает и дату, и время.
+         *
+         * Важно: например, есть метод - изменить минуты (добавить минуты, например) - plusMinutes().
+         * Если написать 30, и если было изначально 00, то станет 30 минут.
+         * Если написать 90, то если было изначально 00, то станет на 1 час 30 минут больше.
+         * Также в параметры метода можно указать 3000000, тогда это уже отразится на часах, днях, и может даже месяце.
+         *
+         * Также важно: если используется класс LocalDate, то там будут методы для этого класса. В этом классе не будет
+         * методов из класса LocalTime. Нельзя будет вызывать метод изменить часы, минуты, секунды, милисекунды.
+         * Можно только изменить год, месяц, день. Аналогично для класса LocalTime. Там можно изменить время
+         * и нельзя изменить дату, так как этих методов нет в этом классе.
+         *
+         * minus [?ma?n?s] - мАинэс (минут)
+         * plus [pl?s] - плАс (плюс)
+         *
+         * Также есть методы сравнения даты и времени и даты+времени (для этих трех классов).
+         * isAfter() - после // true или false
+         * isBefore() - до // true или false
+         *
+         * Можно сравнить LocalDate с LocalDate. Нельзя сравнивать LocalDate с LocalTime. И наоборот.
+         * Также нельзя сравнивать другой класс (дата или время) с классом LocalDateTime.
+         * Можно сравнивать дату с датой, время с временем, дату+время с датой+временем.
          */
 
 
 
 
+        // Ниже 2 класса. Их нужно перенести под основной класс, чтобы не было компиляционных ошибок при раскомментировании.
+// class Test1 {
+//
+//    static void changeEmployee(LocalDate startDate, LocalDate endDate) {
+//        LocalDate dateNow = startDate;
+//        while(dateNow.isBefore(endDate)) {
+//            System.out.println("Наступила дата " + dateNow + ". Сотрудник заменен.");
+//            dateNow = dateNow.plusMonths(1);
+//        }
+//    }
+//    public static void main(String[] args) {
+//        LocalDate startDate = LocalDate.of(2016, Month.SEPTEMBER, 1);
+//        LocalDate endDate = LocalDate.of(2017, Month.MAY, 31);
+//        changeEmployee(startDate, endDate);
+//    }
+//
+//    /**
+//     * Вывод:
+//     * Наступила дата 2016-09-01. Сотрудник заменен.
+//     * Наступила дата 2016-10-01. Сотрудник заменен.
+//     * Наступила дата 2016-11-01. Сотрудник заменен.
+//     * Наступила дата 2016-12-01. Сотрудник заменен.
+//     * Наступила дата 2017-01-01. Сотрудник заменен.
+//     * Наступила дата 2017-02-01. Сотрудник заменен.
+//     * Наступила дата 2017-03-01. Сотрудник заменен.
+//     * Наступила дата 2017-04-01. Сотрудник заменен.
+//     * Наступила дата 2017-05-01. Сотрудник заменен.
+//     */
+//
+//    // Если нужно изменить период, то придется класс менять, а это не очень, поэтому создан ниже другой класс и там указан период.
+//
+//}
+
+//class Test2 {
+//
+//    static void changeEmployee(LocalDate startDate, LocalDate endDate, Period period) {
+//        LocalDate dateNow = startDate;
+//        while(dateNow.isBefore(endDate)) {
+//            System.out.println("Наступила дата " + dateNow + ". Сотрудник заменен.");
+////            dateNow = dateNow.plusMonths(1); // Ранее было .plusMonths(1); Нужно прибавлять не какой-то определенный месяц и число, а период.
+//              dateNow = dateNow.plus(period); // Если период будет месяц, то будет добавлять месяц, если неделя, то неделю и так далее.
+//            // Методы plus и minus нужны для класса период. Чтобы отнимать или прибавлять период.
+//            // Период работает с годом, месяцем, неделей, днем. Минимальный параметр - день. Нельзя работать с меньшим параметром - час, минута, секунда, милисекунда. Будет иксепшин.
+//        }
+//    }
+//    public static void main(String[] args) {
+//        LocalDate startDate = LocalDate.of(2016, Month.SEPTEMBER, 1);
+//        LocalDate endDate = LocalDate.of(2017, Month.MAY, 31);
+//        // Класс период. Нельзя создать объект класса период через new. Через кэнстрактэ. Так как кэнстрактэ тоже прайвэт.
+////        Period period = Period.ofYears(1);// Нужно создать период и указать. Можно указывать год, месяц, день, неделя.
+//        Period period = Period.ofMonths(1);
+////        Period period = Period.ofWeeks(1);
+////        Period period = Period.ofDays(1);
+////        Period period = Period.of(1, 2, 5); // Комбинированный вариант. Период будет меняться каждый 1 год 2 месяца и 5 дней.
+//        changeEmployee(startDate, endDate, period); // Добавляем третий параметр - период
+//
+//          При создании объекта период не работает метод чеинин метода of. Если сделать метод чеинин к методу of,
+//          Сначала сделать один оф, затем к нему второй, третий, четвертый, то когда дата будет сохраняться в переменную
+//          Изменение будет только по последнему of. А предыдущие не будут учитываться. Так что отдельно нужно прописывать каждый раз of.
+//          Period p = Perion.ofMonths(3).ofDays(10); // 10 дней добавится, а 3 месяца нет.
+//          startDate.plus(p); // 10 дней добавится, а 3 месяца нет.
+//    }
+
+/**
+ *
+ * Класс Period работает с датой (год, месяц, неделя, день)
+ * Класс Duration работает с временем (день, час, минута, секунда, милисекунда, наносекунды). День - его здесь тоже можно менять.
+ *
+ * Оба класса нельзя создать как объект через new. Можно лишь вызывать метод для создания объекта.
+ * Также когда изменяется объект, то он сохраняется в Period или Duration, в зависимости от того, какой класс использовался.
+ *
+ * милисекунда - это тысячная секунды 999
+ * наносекунда - это миллиарндая секунды 999 999 999
+ *
+ * Duration d1 = Duration.ofDays(3); // Добавит 3 дня. Можно отнять 3 дня. Аналогия с другими периодами ниже.
+ * Duration d2 = Duration.ofHours(3);
+ * Duration d3 = Duration.ofMinutes(3);
+ * Duration d4 = Duration.ofSeconds(3);
+ * Duration d5 = Duration.ofMillis(3);
+ * Duration d6 = Duration.ofNanos(3);
+ */
+
+// Если у нас есть LocalDate, то туда можно добавить LocalDate или Period,
+// так как этот класс содержит аргументы по изменению даты.
+// Duration работает с временем, поэтому не получится его использовать для LocalDate.
+// Но у Duration есть ofDays(), и даже с таким методом не получится изменить дату LocalDate.
+// Duration делался для меньшего периода, поэтому время можно менять в LocalTime или LocalDateTime.
+
+// Методы plus и minus можно использовать для Period. Можно использовать для LocalDate и LocalDateTime. Если использовать к LocalTime, то будет иксепшин, так как Period работает с датой, а не временем.
+// Методы plus и minus можно использовать для Duration. Можно использовать для LocalTime и LocalDateTime. Если использовать к LocalDate, то будет иксепшин, так как Duration работает с временем, а не датой.
+
+// Метод чеинин не работает как для Period, так и для Duration. Сохранится только последнее значение, а прыдыдущие в методе чеинин не применятся.
+
+//    /**
+//     * Вывод:
+//     * Наступила дата 2016-09-01. Сотрудник заменен.
+//     * Наступила дата 2016-10-01. Сотрудник заменен.
+//     * Наступила дата 2016-11-01. Сотрудник заменен.
+//     * Наступила дата 2016-12-01. Сотрудник заменен.
+//     * Наступила дата 2017-01-01. Сотрудник заменен.
+//     * Наступила дата 2017-02-01. Сотрудник заменен.
+//     * Наступила дата 2017-03-01. Сотрудник заменен.
+//     * Наступила дата 2017-04-01. Сотрудник заменен.
+//     * Наступила дата 2017-05-01. Сотрудник заменен.
+//     */
+//
+//    // Если нужно изменить период, то придется класс менять, а это не очень, поэтому создан ниже другой класс и там указан период.
+//
+//}
+
+/**
+ * Получение информации из класса LocalDate:
+ * getDayOfWeek() -> DayOfWeek // Получение дня недели той даты, которая установлена
+ * getDayOfMonth() -> int // Получение дня той даты, которая установлена
+ * getDayOfYear() -> int // Получает день от года. Например, если дата 1 сентября 2016, то этот метод выведет 245 день сегодня в году.
+ * getMonth() -> Month // Получает месяц (словом выводит)
+ * getMonthValue() -> int // Получает месяц (числом выводит)
+ * getYear() -> int // Получает год
+ *
+ * Получение информации из класса LocalTime:
+ * getHour() -> int
+ * getMinute() -> int
+ * getSecond() -> int
+ * getNano() -> int
+ *
+ * Получение информации из класса LocalDateTime:
+ * Данный класс включает в себя все методы из классов LocalDate и LocalTime.
+ */
+
+/**
+ * Ранее было написано, что есть два класса для форматирования даты: DateFormat и SimpleDateFormat.
+ * Для классов LocalDate, LocalTime, LocalDateTime создан еще один класс для форматирования даты - DateTimeFormatter.
+ *
+ * Данный класс находится в пэкэджэ: java.time.format.*;
+ *
+ * С помощью метода format() можно изменять вывод даты или времени. Пример ниже.
+ */
+
+        DateTimeFormatter d1 = DateTimeFormatter.ISO_LOCAL_DATE; // Это инам. Есть и другие форматы для вывода даты и времени на экран.
+        LocalDate ld50 = LocalDate.of(2020, 1, 10);
+        System.out.println(ld50.format(d1)); // 2020-01-10
+        System.out.println(d1.format(ld50)); // 2020-01-10
+        // Выше 2 строки. Там переменные поменяны местами. Переменная, которая вызывает метод формат и переменная, которая в параметрах метода. Можно писать и так, и так.
+
+        // Если у нас DateTimeFormatter.ISO_LOCAL_DATE , то мы можем форматировать только LocalDate. Если будет указан LocalTime, то будет иксепшин.
+
+        DateTimeFormatter d2 = DateTimeFormatter.ISO_LOCAL_TIME;
+        LocalTime ld51 = LocalTime.of(15, 33);
+        System.out.println(ld51.format(d2)); // 15:33:00
+
+        DateTimeFormatter d3 = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+        LocalDateTime ld52 = LocalDateTime.of(2020, 1, 10, 15, 33);
+        System.out.println(ld52.format(d3)); // 2020-01-10T15:33:00
+        System.out.println(ld52.format(d1)); // 2020-01-10
+        System.out.println(ld52.format(d2)); // 15:33:00
+
+        System.out.println("---");
+        System.out.println(ld52); // 2020-01-10T15:33
+        System.out.println(ld52.format(DateTimeFormatter.ISO_WEEK_DATE)); // 2020-W02-5 // После года идет номер недели в году, затем день недели. Вторая неделя в году и в этот день - пятница. Выводит день недели, исходя из локали. По умолчанию она от компьютера считывается. Так что будет как обычно - если пятница, то пятница выведется, без смещения дня недели, как в других странах.
+
+        // Также отформатировать дату можно другим способом. Пример ниже.
+        // Дата
+        DateTimeFormatter format1 = DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT);
+        DateTimeFormatter format2 = DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL);
+        DateTimeFormatter format3 = DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG);
+        DateTimeFormatter format4 = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM);
+        System.out.println("----");
+        System.out.println(ld52); // 2020-01-10T15:33 // Обычный вывод даты
+        System.out.println(format1.format(ld52)); // 10.01.2020 // SHORT
+        System.out.println(format2.format(ld52)); // пятница, 10 января 2020 г. // FULL
+        System.out.println(format3.format(ld52)); // 10 января 2020 г. // LONG
+        System.out.println(format4.format(ld52)); // 10 янв. 2020 г. // MEDIUM
+
+        /**
+         * Строка: DateTimeFormatter shortFormat1 = DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT);
+         *
+         * Объяснение строки
+         *
+         * В параметрах указываем FormatStyle.* и указываем вместо звездочки формат вывода даты
+         * А до параметров написано ofLocalizedDate. Там есть и другие варианты. Можно выбрать время или дату и время.
+         */
+
+        // Время
+        DateTimeFormatter format11 = DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT);
+//        DateTimeFormatter format21 = DateTimeFormatter.ofLocalizedTime(FormatStyle.FULL);
+//        DateTimeFormatter format31 = DateTimeFormatter.ofLocalizedTime(FormatStyle.LONG);
+        DateTimeFormatter format41 = DateTimeFormatter.ofLocalizedTime(FormatStyle.MEDIUM);
+        System.out.println("----");
+        System.out.println(ld52); // 2020-01-10T15:33 // Обычный вывод даты
+        System.out.println(format11.format(ld52)); // 15:33 // SHORT
+//        System.out.println(format21.format(ld52)); // FULL - этот вариант для времени не работает
+//        System.out.println(format31.format(ld52)); // LONG - этот вариант для времени не работает
+        System.out.println(format41.format(ld52)); // 15:33:00 // MEDIUM
+
+        // Дата и время
+        DateTimeFormatter format111 = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT);
+//        DateTimeFormatter format211 = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.FULL);
+//        DateTimeFormatter format311 = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.LONG);
+        DateTimeFormatter format411 = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM);
+        System.out.println("----");
+        System.out.println(ld52); // 2020-01-10T15:33 // Обычный вывод даты
+        System.out.println(format111.format(ld52)); // 10.01.2020, 15:33 // SHORT
+//        System.out.println(format211.format(ld52)); // FULL - этот вариант для даты и времени не работает
+//        System.out.println(format311.format(ld52)); // LONG - этот вариант для даты и времени не работает
+        System.out.println(format411.format(ld52)); // 10 янв. 2020 г., 15:33:00 // MEDIUM
+
+        /**
+         * Метод format() есть не только у классов LocalDate, LocalTime, LocalDateTime, но и у класса
+         * DateTimeFormatter, что делает возможным написание последнего выражения в следующем виде:
+         * sout(f2.format(ldt));  // Переменные можно менять местами. Результат форматирования будет в обоих случаях.
+         */
+
+        // С помощью метода ofPattern() можно создать свой формат.
+        DateTimeFormatter format0 = DateTimeFormatter.ofPattern("MMMM dd yyyy, hh:mm:ss"); // Можно разделить дату или месяц от года или еще что-то запятой или тирре или другим символом
+        System.out.println(ld52); // 2020-01-10T15:33
+        System.out.println(ld52.format(format0)); //  января 10 2020, 03:33:00
+
+        /**
+         * Обозначения формата:
+         *
+         * Y - 2014, YY - 14, YYYY - 2014
+         * M - 3, MM - 03, MMM - мар, MMMM - марта
+         * w - 1, ww - 01
+         * d - 4, dd - 04
+         * h - 3, hh - 03 // Указано 15 часов, но выведется 3 или 03, так как 12 часовой день
+         * H - 15, HH - 15 // Указано 15 часов и выведется 15, так как 24 часовой день
+         * и так далее по другим вариантам: минуты, секунды, милисекунды, наносекунды.
+         *
+         * Ниже будет ссылка, но с нее уже скачана таблица вариантов для форматирования. Варианты под ссылкой.
+         * Подробный формат даты и времени для создания своего формата:
+         * https://javarush.ru/groups/posts/1941-kak-ne-poterjatjhsja-vo-vremeni--datetime-i-calendar
+         *
+         * G	эра (в английской локализации — AD и BC)	н.э.
+         * y	год (4-х значное число)	2020
+         * yy	год (последние 2 цифры)	20
+         * yyyy	год (4-х значное число)	2020
+         * M	номер месяца (без лидирующих нулей)	8
+         * MM	номер месяца (с лидирующими нулями, если порядковый номер месяца < 10)	04
+         * MMM	трехбуквенное сокращение месяца (в соответствии с локализацией)	янв
+         * MMMM	полное название месяца	Июнь
+         * w	неделя в году (без лидирующих нулей)	4
+         * ww	неделя в году (с лидирующими нулями)	04
+         * W	неделя в месяце (без лидирующих нулей)	3
+         * WW	неделя в месяце (с лидирующим нулем)	03
+         * D	день в году	67
+         * d	день месяца (без лидирующих нулей)	9
+         * dd	день месяца (с лидирующими нулями)	09
+         * F	день недели в месяце (без лидирующих нулей)	9
+         * FF	день недели в месяце (с лидирующими нулями)	09
+         * E	день недели (сокращение)	Вт
+         * EEEE	день недели (полностью)	пятница
+         * u	номер дня недели (без лидирующих нулей)	5
+         * uu	номер дня недели (с лидирующими нулями)	05
+         * a	маркер AM/PM	AM
+         * H	часы в 24-часовом формате без лидирующих нулей	6
+         * HH	часы в 24-часовом формате с лидирующим нулем	06
+         * k	количество часов в 24-часовом формате	18
+         * K	количество часов в 12-часовом формате	6
+         * h	время в 12-часовом формате без лидирующих нулей	6
+         * hh	время в 12-часовом формате с лидирующим нулем	06
+         * m	минуты без лидирующих нулей	32
+         * mm	минуты с лидирующим нулем	32
+         * s	секунды без лидирующих нулей	11
+         * ss	секунды с лидирующим нулем	11
+         * S	миллисекунды	297
+         * z	часовой пояс	EET
+         * Z	часовой пояс в формате RFC 822	300
+         */
+
+        // У объектов класса LocalDate, LocalTime, LocalDateTime нужно брать ту информацию, которую они содержат,
+        // иначе будет иксепшин. Например, объект LocalDate и сделал свой формат для даты и берем время, а времени нет
+        // в LocalDate, поэтому будет иксепшин.
+
+        // Метод parse() переводит String в объект классов LocalDate, LocalTime и LocalDateTime, если используется DateTimeFormatter.
+        // Метод parse() переводит String в объект Date, если используется SimpleDateFormat
+
+        // parse [p??z] - пАз - парсинг
+        // pattern [?p?tn] - пЭтн - шаблон
+
+        DateTimeFormatter format01 = DateTimeFormatter.ofPattern("MM dd yyyy"); // Пэтн нужен, чтобы свою дату сконвертировать в дэфалтную
+        LocalDate ld01 = LocalDate.parse("01 20 2015", format01); // Значение стрин должно быть такого же формата, как выше, где указывался формат. Также нужно после запятой указать переменной формата, если наша дата не соответствует дфалтному формату
+        System.out.println(ld01); // 2015-01-20 - выводится в дэфалтном виде дата, а не в нашем. Так и должно быть. У нас есть какая-то своя дата в своем формате, как на этой строке указано, и мы создаем под эту дату формат, и потом этот формат даты конвертируется в дэфалтный формат даты и сохраняется в дэфалтный формат. Так работает форматирование. От нашего формата в дэфалтный.
+
+        LocalDate ld02 = LocalDate.parse("2015-01-20"); // Так выглядит дэфалтный вариант даты, поэтому его форматировать не нужно. Он сразу выведется.
+        System.out.println(ld02); // 2015-01-20
 
 
 
 
 
-
-
-
-
-
-
-
+        // Код из телемилка для работы с датами:
 
 //        public static List<Date> listDates(Date startDate, Date endDate) {
 //            List<Date> dates = new ArrayList<>();

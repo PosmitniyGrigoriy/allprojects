@@ -394,7 +394,7 @@ class Test15 {
 // Результат вывода: Был пойман иксепшин 1: java.io.FileNotFoundException: путь\test1.txt (Не удается найти указанный файл)
 // Второй catch бесполезен, так как иксепшин был пойман первым catch, и обработан, поэтому второй catch не будет работать.
 
-// unchecked - [?n??ekt] - анчЕкт - непроверенный
+// unchecked - анчЕкт - непроверенный
 // throwable - фровбл бросаемый
 
 // в блоке finally пишется подчищающий код. например, закрытие потока. close().
@@ -402,14 +402,422 @@ class Test15 {
 /**
  * Ловить конкретный иксепшин, чтобы только его обрабатывать. Если ловить общий иксепшин Exception, то будет общая обработка,
  * а не обработка конкретного иксепшина, что плохо.
+ *
+ * finally блок выполняется, если в try или catch есть return
  */
 
+class Test16 {
+
+    static int abc() {
+        try {
+            File file3 = new File("C:\\Java\\workspace\\My-training-projects-part-1\\Lessons\\src\\main\\java\\ru\\site\\start\\lesson27and28\\test1.txt");
+            FileInputStream fileInputStream = new FileInputStream(file3);
+            return 5;
+        } catch (FileNotFoundException ex) {
+            System.out.println("Был пойман иксепшин 1: " + ex);
+            return 8;
+        } finally {
+            System.out.println("Конец");
+            return 33;
+        }
+//        return 44; // На этой строке уже анричибл стэйтмэнт. Сработает ритен в файнали блоке и дальше не пойдет, поэтому ниже ритен не выполнится.
+    }
+
+    public static void main(String[] args) {
+        System.out.println(abc());
+    }
+}
+
+/**
+ * Результат вывода:
+ * Был пойман иксепшин 1: ...
+ * Конец
+ * 33
+ */
+
+/**
+ * finally блок не выполнится, если программа будет завершена через System.exit в try или catch,
+ * или если будет крушение JVM или операционной системы.
+ *
+ * finally блок не выполняется в через чур экстренных случаях.
+ *
+ * Если return имеется в catch и finally блоке, то аутпутом будет возвращаемое значение из finally блока.
+ */
+
+/**
+ * Если иксепшин не ран тайм, а обычный, то это чект иксепшин. ЕГо нужно обрабатывать или пробрасывать.
+ *
+ * Выписать класс иксепшинов, которые относятся к ран тайм иксепшинам и к обычным, чтобы понимать в каких случаях нужно
+ * пробрасывать иксепшины или обрабатывать, а когда это делать не нужно.
+ *
+ * Если return в catch блоке возвращает примитивный тип данных, то  его нельзя изменить в finally блоке.
+ * Если return в catch блоке возвращает рефренс тип данных (СтринБилде), то его можно и зменить в finally блоке.
+ * Тоже для другого рефрефс типа. Главное, чтобы было mutable.
+ *
+ * Исключение может быть переброшено. Это обычно делают, когда код текущего метода обработал
+ * исключение не полностью и выбрасывает его вновь, чтобы метод, который будет вызывать
+ * текущий метод завершил обработку исключения.
+ *
+ * Можно использовать вложенные блоки try, catch, finally, как во вложенных фор и иф.
+ */
+
+class Test17 {
+    void abc() {
+        int[] array = {1, 5, 9};
+        try {
+            System.out.println(array[55]);
+        } catch(ArrayIndexOutOfBoundsException ex) {
+            System.out.println(ex);
+        } catch(NullPointerException ex) {
+            System.out.println(ex);
+        }
+    }
+    public static void main(String[] args) {
+        Test17 test17 = new Test17();
+        test17.abc();
+    }
+}
+
+// Код в классе Test17. В try идет обращение к индексу 55, такого нет. Это выход за пределы массива.
+// Для этой ситуации подойдут первый catch. Второй бесполезен. Не появится. так что нет смысла писать его.
+
+class Test18 {
+    void abc() {
+        int[] array = {1, 5, 9};
+        try {
+            System.out.println(array[33]);
+        } catch(ArrayIndexOutOfBoundsException ex) {
+            String text = null;
+            System.out.println(text.length());
+        } catch(NullPointerException ex) {
+            System.out.println(ex);
+        }
+    }
+    public static void main(String[] args) {
+        Test18 test18 = new Test18();
+        test18.abc();
+    }
+}
+
+// Если в классе Test18 написать два раза catch, то они оба относятся к первому try. А то, что внутри первого catch
+// будет NullPointer, чтобы его обработать нужно внутри catch писать try, catch. Пример в Test19
+
+class Test19 {
+    void abc() {
+        int[] array = {1, 5, 9};
+        try {
+            System.out.println(array[33]);
+        } catch(ArrayIndexOutOfBoundsException ex) {
+            String text = null;
+            try {
+                System.out.println(text.length());
+            } catch(NullPointerException ex2) {
+                System.out.println(ex2);
+            }
+        } catch(NullPointerException ex) {
+            System.out.println(ex);
+        }
+    }
+    public static void main(String[] args) {
+        Test19 test19 = new Test19();
+        test19.abc();
+    }
+}
+
+// Ниже создаются свои иксепшины
+
+class PodvernutbNogyException extends Exception {
+    PodvernutbNogyException(String message) { // У класса Exception есть кэнстрактэ с параметром строка, поэтому можно создать такой кэнстрактэ и передать туда строку
+        super(message); // Затем вызывается этот кэнстрактэ и туда передается значение строки
+    }
+    PodvernutbNogyException() { // Если нужен иксепшин без сообщения, то использовать второй вариант
+        super();
+    }
+}
+
+class SveloMishichyException extends RuntimeException {
+    SveloMishichyException(String message) {
+        super(message); //
+    }
+    SveloMishichyException() {
+        super();
+    }
+}
+
+//class Test20 {
+//    void marafon(int airTemperature, int runningSpeed) { // Так как указываем свой иксепшин, который наслудуется классом Exception, он чект иксепшин, его нужно пробрасывать или обрабатывать, если это не сделать, то на строке throw new ... будет компиляционная ошибка
+//        if(runningSpeed > 12) {
+////            throw new PodvernutbNogyException("ddd");
+//        }
+//    }
+//}
+
+class Test20 {
+    void marafon(int runningSpeed, int airTemperature) throws PodvernutbNogyException {
+        if(runningSpeed <= 12 && airTemperature <= 32) {
+            System.out.println("Вы пробежали марафон");
+        }
+        if (runningSpeed > 12) {
+            throw new PodvernutbNogyException("Скорость бега была больше 12. Скорость: " + runningSpeed);
+        }
+        if (airTemperature > 32) {
+            throw new SveloMishichyException(); // Так как у класса SveloMishichyException наследование ран тайм иксепшин, это анчект иксепшин, то пробрасывать и обрабатывать не нужно
+        }
+    }
+
+    // v1
+//    public static void main(String[] args) throws PodvernutbNogyException { // Дописать  throws PodvernutbNogyException, чтобы не было ошибки при вызове метода marafon, так как иксепшин был проброшен, а не обработан выше (в методе марафон)
+//        Test20 test20 = new Test20();
+//        test20.marafon(10, 10); // Выведется пустота
+//        test20.marafon(20, 10); // Будет наше сообщение и ниже стэк стрэйс
+//        test20.marafon(10, 40); // Выведется стэк стэйс по второму аргументу
+//    }
+
+    // v2
+    public static void main(String[] args) {
+        Test20 test20 = new Test20();
+        try {
+            test20.marafon(10, 10); // Выведется пустота
+            test20.marafon(20, 10); // Будет наше сообщение и ниже стэк стрэйс
+            test20.marafon(10, 40); // Выведется стэк стэйс по второму аргументу
+//        }
+        } catch (PodvernutbNogyException | SveloMishichyException ex) {
+            System.out.println(ex);
+        } finally {
+            System.out.println("Вы получите грамоту!");
+        }
+    }
+}
+
+// Создавать исключения, которые наследуются от Exception или RuntimeException. Когда что из этого нужно выбирать?
+// Если не указать в наследовании Exception или RuntimeException, то будет компиляционная ошибка.
+// Чтобы выбрасывать свои ошибки нужно указывать наследование класса Exception или RuntimeException.
 
 
+/**
+ * Распространенные саб-классы RuntimeException
+ * 1. ArrayIndexOutOfBoundsException - когда обращаемся к индексу меньше нуля или больше размера массива
+ * 1.1. IndexOutOfBoundsException - это аналог первого иксепшина, только для коллекции.
+ * 2. ArithmeticException - когда делим на нуль.
+ * 3. ClassCastException - когда два класса не имеют связи и второй кастуется под первый.
+ * 4. IllegalArgumentException - когда в параметры метода неправильно написан аргумент. Чтобы вывести какое-то сообщение свое,
+ * если аргумент не правильно указан, то можно использовать этот готовый иксепшин. Пример будет ниже.
+ * 5. IllegalStateException - когда метод вызывается в не подходящее время. Пример будет ниже.
+ * 6. NullPointerException
+ * 7. NumberFormatException - наследник IllegalArgumentException.
+ * Если будет указано Integer.parseInt("44оп"); , то будет этот иксепшин, так как в параметры нужно было
+ * указать число, а не буквы. Тогда буквы строчные перевелись бы в число.
+ * Если будет указано Integer.parseInt("44оп", 16); Переводится в шестнадцатеричную систему счисления,
+ * тогда проходит и конвертируется.
+ */
+
+class Test21 {
+
+    public static void createPassword(String password) {
+        if (password.length() < 6) {
+            throw new IllegalArgumentException("Пароль должен быть от 6 символов.");
+        }
+    }
+
+    public static void main(String[] args) {
+        createPassword("123");
+    }
+}
+
+/**
+ * Результат вывода:
+ * Exception in thread "main" java.lang.IllegalArgumentException: Пароль должен быть от 6 символов.
+ * at ru.site.start.lesson27and28.Test21.createPassword(Start2.java:616)
+ * at ru.site.start.lesson27and28.Test21.main(Start2.java:621)
+ */
+
+class Test22 {
+
+    static String sostoyanie = "в ожидании"; // в ожидании, в воздухе, полет отменен
+
+    public static void letet() {
+        sostoyanie = "в воздухе";
+        System.out.println("Самолет летит");
+    }
+
+    public static void ojidat() {
+        if (sostoyanie.equals("в воздухе")) {
+            throw new IllegalStateException("Самолет уже в воздухе");
+        }
+        sostoyanie = "в ожидании";
+        System.out.println("Самолет в ожидании");
+    }
+
+    public static void otmenitPolet() {
+        if (sostoyanie.equals("в воздухе")) {
+            throw new IllegalStateException("Самолет уже в воздухе");
+        }
+        sostoyanie = "полет отменен";
+        System.out.println("Полет самолета отменен");
+    }
+
+    public static void main(String[] args) {
+        ojidat();
+        letet();
+        otmenitPolet();
+    }
+
+}
+
+/**
+ * Распространенные саб-классы Error:
+ * 1. ExceptionInInitializerError - является наследником класса LinkegeError. Эта ошибка появляется, когда
+ * в статическом инициализаторе во время ран тайм появилась ошибка.
+ * static {
+ *    int result = Integer.parseInt("44оп");
+ * }
+ * // Выбрасывается NumberFormatException, так как здесь буквы указаны, но так как это внутри стэтик
+ * инициализатора, то будет ошибка ExceptionInInitializerError. Что внутри статического инициализатора
+ * была обнаружена ошибка.
+ *
+ * Также ошибка ExceptionInInitializerError будет появляются когда любой статический контекст используется.
+ * Например, две строки ниже.
+ * static String text = null;
+ * static int a = text.length();
+ * Здесь text статический и равен нал. затем получаем длину. будет нал поинтер. и это передается в стэтик а.
+ * И ошибка ExceptionInInitializerError. Также эта ошибка была бы у статического метода, если бы
+ * внутри этого метода появилась бы ошибка.
+ *
+ * 2. StackOverFlowError - наследник VirtualMachineError. Это связано с рекурсией. Когда создается много объектов.
+ * 3. OutOfMemoryError - наследник VirtualMachineError. Когда память у джава виртуальной машины закончится,
+ * то не получится больше создавать новые объекты.
+ * 4. NoClassDefFoundError - является наследником класса LinkegeError. Джава не может найти
+ * какой-то класс ран тайм уже во время запуска программы.
+ */
+
+/**
+ * Исключения, переопределенные методы, перегруженные методы, кэнстрактэ
+ *
+ * Если класс перезаписывает метод из супер класса или имплементирует методы из интерфейса
+ * нельзя добавлять в его сигнатуру новые чект исключения. Можно в сигнатуре метода использовать
+ * только исключения из перезаписанного метода супер класса или дочерние классы данных иссключений.
+ * Пример. Если метод может выбросить throws IOException, то можно указать или этот вариант или тот, которые меньше
+ * ниже уровнем. Например, FileNotFoundException. Нельзя указать иксепшин в throw, который выше
+ * IOException. Например, Exception или другой какой-то.
+ *
+ * Пример ниже.
+ */
+
+class Test23 {
+    public static void main(String[] args) {
+        Animal2 a = new Mouse2();
+        try {
+            a.run();
+        } catch (IOException ex)  {
+            System.out.println("Иксепшин пойман");
+        }
+    }
+}
+
+class Animal2 {
+    void run() throws IOException {
+        System.out.println("Энимал ран");
+    }
+}
+
+class Mouse2 extends Animal2 {
+    void run() throws IOException { // Так писать можно. Указан первичный иксепшин.
+//    void run() throws FileNotFoundException { // Так писать можно. Указан более низкий иксепшин
+//    void run() throws Exception { // Так писать нельзя. Здесь указать более высокий иксепшин
+        System.out.println("Энимал ран");
+    }
+}
+
+/**
+ * Если указать первичный иксепшин или более низкий, то будет работать. А если более высокий,
+ * например, Exception, то будет ошибка компиляции, так как когда пишется строка
+ * Animal2 a = new Mouse2(); метод run ищется в классе Animal2 и находится. Там throws IOException
+ * А потом смотрит объект какого класса будет создан. new Mouse2(); и делает переопределение,
+ * но у переопределенного метода может быть такой же иксепшин указан или более низкий. А не более высокий
+ * Если более высокий будет, то нужно было в Animal2 указывать более высокий иксепшин и в catch
+ * указывать тоже более высокий иксепшин.
+ *
+ * Если будет как код выше, только будет перегруженные методы, то можно писать большего уровня иксепшин.
+ *
+ * Кэнстрактэ может выбрасывтаь исключвения.
+ * Кэнстрактэ в сигнатуре должен описывать все исключения кэнстрактэ супер класса, который он
+ * вызывает. Может описывать супер классы данных исключений, а также добавлять новые исключения.
+ *
+ * Кэнстрактэ с пробросом иксепшина ведут себя противоположно перезаписанным методам.
+ */
+
+class Animal3 {
+    Animal3() throws FileNotFoundException {}
+}
+
+//class Mouse3 extends Animal3 {} // Если так написать, то будет компиляционная ошибка, так как не закрыта срока выброса иксепшина
+
+//class Mouse3 extends Animal3 {
+//    Mouse3() { super(); }  // Если так написать, то тоже будет такая же ошибка
+//    Mouse3() throws FileNotFoundException { super(); } // А так уже иксепшин проброшен, и ошибки нет.
+//    Mouse3() throws FileNotFoundException { } // Так тоже можно писать. Ошибки не будет.
+//}
+
+/**
+  * Если в основном классе у кэнстрактэ проброшен иксепшин и если есть класс наследник, то там нужно
+  * в кэнстрактэ пробрасывать тоже иксепшин.
+ * Также кэнстрактэ в классе, которые наследует верхний клас можно указывать более широкий (верхний иксепшин),
+ * а в перегруженных методах так нельзя было делать.
+ */
+
+// В throw и trows можно указывать иксепшины анчект, которые появляются во время ран тайм. Но их указывать не стоит
+
+// Если в теле кэнстрактэ идет бросание иксепшина, то в сигнатуре кэнстрактэ указывать иксепшин. Когда будет создаваться объект этого кэнстрактэ, то нужно обрабатывать или пробрасывать.
+
+// Если есть метод satic void abc() {} и потом где-это этот метод вызывается и обрабатывается, то будет ошибка. Так как обрабатывать здесь не нужно. не будет иксепшна во время работы метода.
+
+// Test 1
+class T1 {
+    static String str = "";
+
+    void ghi() throws Exception {
+        throw new Exception();
+    }
+
+    void def() throws Exception {
+        ghi();
+        str += "2";
+        ghi();
+        str += "3";
+    }
+
+    void abc() {
+        try {
+            def();
+        } catch (Exception e) {
+            str += "1";
+        }
+    }
+
+    public static void main(String[] args) {
+        T1 t = new T1();
+        t.abc();
+        System.out.println(str);
+    }
+}
+
+// Результат вывода: 1.
+// Когда первый раз встречатся иксепшин, он идет в обратную сторону и выводит 1, и повторно не идет уже.
 
 
+// Test 2
+// Какие из этих классов представляют собой unchecked исключения?
+// A) CompilationException
+// B) NumberException
+// C) NullPointerException
+// D) Throwable
+// E) StackOverflowException
+// F) RuntimeException
+// G) ArrayIndexOutOfBoundsException
+// H) IllegalArgumentException
+// I) MemoryOutOfBoundsException
+// J) CheckedException
 
-
-// Далее смотреть второе видео с самого начала и записывать заметки
-
-
+// Важно: разные варианты выше не существуют. A, B, E, I, J
+// Правильные варианты: С, F, G, H
+// D - чект иксепшин.
